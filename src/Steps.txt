@@ -1,0 +1,5 @@
+1: Project Setup
+2 : Google Fonts 
+Font : Inter (variants : regular , Semi Bold , Bold)
+3 : Making two backgroud blurs
+4 : 
