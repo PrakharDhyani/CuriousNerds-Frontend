@@ -31,11 +31,12 @@ export const uploadImg = createAsyncThunk("post/sendImage", async (data, { rejec
         }
     }
 })
+
 export const getTimeLinePosts = createAsyncThunk("post/getTimeLinePosts", async (id, { rejectWithValue }) => {
     //make a req to backend
     try {
         const res = await api.get(`/post/${id}/timeline`);
-        console.log(res.data)
+        // console.log(res.data)
         return res.data;
     }
     catch (error) {
@@ -62,17 +63,23 @@ export const likePost = createAsyncThunk("post/likePost", async ({ id, userId, l
         }
     }
 })
-// export const likePost = async ({ id, userId, like }) => {
-//     //make a req to backend
-//     try {
-//         console.log(like)
-//         const res = await api.put(`/post/${id}/like`, { userId });
-//         return { id, userId, like };
-//     } catch (error) {
-//         // return custom error message from API if any
-//         return { error };
-//     }
-// }
+export const deletePost = createAsyncThunk("post/deletePost", async ({ data, user }, { rejectWithValue }) => {
+    // console.log(data, user._id)
+    const userId = user._id;
+    //make a req to backend
+    try {
+        const res = await api.delete(`/post/${data._id}/${userId}`);
+        return res;
+    } catch (error) {
+        // return custom error message from API if any
+        if (error.response && error.response.data.message) {
+            return rejectWithValue(error.response.data.message)
+        } else {
+            return rejectWithValue(error.message)
+        }
+    }
+})
+
 
 
 

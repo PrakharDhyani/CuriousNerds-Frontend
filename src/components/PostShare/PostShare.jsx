@@ -1,5 +1,4 @@
 import React, {useState,useRef} from 'react'
-import ProfileImg from "../../img/profileImg.jpg"
 import {UilScenery ,UilPlayCircle ,UilLocationPoint,UilSchedule,UilTimes} from "@iconscout/react-unicons"
 import { useDispatch, useSelector } from 'react-redux'
 import { uploadPost,uploadImg } from '../../features/post/postAction'

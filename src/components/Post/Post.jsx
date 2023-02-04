@@ -5,7 +5,7 @@ import Share from "../../img/share.png"
 import Comment from "../../img/comment.png"
 import "./Post.css"
 import {useDispatch, useSelector } from "react-redux"
-import { likePost } from '../../features/post/postAction'
+import { likePost,deletePost } from '../../features/post/postAction'
 
 export default function Post({data}) {
   const { user } = useSelector((state) => state.user.userInfo);
@@ -20,6 +20,10 @@ export default function Post({data}) {
     like ? setLikes((prev)=>prev+1) : setLikes((prev)=>prev-1)
     dispatch(likePost({ id: data._id, userId: user._id, like }));
   }
+  const handleDelete = () => { 
+    dispatch(deletePost({data ,user}));
+  }
+
   return (
     <div className='Post' >
       <img src={data.image ? process.env.REACT_APP_PUBLIC_FOLDER + data.image : ""} alt="" />
@@ -27,7 +31,11 @@ export default function Post({data}) {
       <div className="PostReact">
           <img src= {liked ? Heart : NotLike} alt="" style={{cursor:"pointer"}} onClick={()=>{handleLike()}} />
           <img src= {Comment} alt="" />
-          <img src= {Share} alt="" />
+          <img src={Share} alt="" />
+        {
+          data.userId === user._id && <i onClick={handleDelete} className="fa-sharp fa-solid fa-trash" ></i>
+        
+        }
       </div>
       <span style={{ color: "var(--gray)", fontSize:"12px"}} >{likes} likes</span>
       <div className="detail">
