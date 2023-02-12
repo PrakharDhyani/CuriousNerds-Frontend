@@ -1,7 +1,9 @@
 import React from 'react'
 import { useSelector } from "react-redux"
+import { Link } from "react-router-dom"
+import defaultCover from "../../img/defaultcover.jpg"
+import defaultprofile from "../../img/defaultprofile.jpg"
 import "./ProfileCard.css"
-import {Link} from "react-router-dom"
 
 export default function ProfileCard({ location }) {
   const {posts} = useSelector((state) => state.posts)
@@ -10,8 +12,8 @@ export default function ProfileCard({ location }) {
   return (
       <div className="ProfileCard">
           <div className="ProfileImages">
-              <img src={user.coverPicture ? serverPublic + user.coverPicture : serverPublic + "defaultcover.jpg"} alt="background" />
-              <img src={user.profilePicture ? serverPublic + user.profilePicture : serverPublic + "defaultprofile.jpg"} alt="profile" />
+              <img src={user.coverPicture ? serverPublic + user.coverPicture :  defaultCover} alt="background" />
+              <img src={user.profilePicture ? serverPublic + user.profilePicture : defaultprofile} alt="profile" />
           </div>
           <div className="ProfileName">
         <span>{user.firstname} {user.lastname }</span>
