@@ -52,9 +52,6 @@ export const loginUser = createAsyncThunk("auth/login", async ({ username, passw
     }
 })
 
-export const logoutUser = createAsyncThunk("auth/logout", async (data, { rejectWithValue }) => {
-    // localStorage.clear();
-})
 export const updateUser = createAsyncThunk("auth/update", async ({ id, formData }, { rejectWithValue }) => {
     try {
         // make request to backend

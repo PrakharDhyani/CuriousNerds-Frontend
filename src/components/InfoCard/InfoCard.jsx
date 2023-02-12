@@ -6,7 +6,7 @@ import ProfileModal from '../ProfileModal/ProfileModal'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import Api from '../../common/api/Api'
-import { logoutUser } from '../../features/user/userActions'
+import { logoutUser } from '../../features/user/userSlice'
 
 export default function InfoCard() {
     const dispatch = useDispatch() 

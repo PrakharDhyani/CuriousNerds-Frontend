@@ -1,6 +1,6 @@
 // userSlice.js
 import { createSlice } from '@reduxjs/toolkit'
-import { loginUser, registerUser, logoutUser, updateUser, followUser } from './userActions'
+import { loginUser, registerUser, updateUser, followUser } from './userActions'
 
 
 const initialState = {
@@ -16,70 +16,66 @@ const initialState = {
 export const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {},
-    extraReducers: {
-        // register user
-        [registerUser.pending]: (state) => {
-            state.loading = true
-            state.error = false
-        },
-        [registerUser.fulfilled]: (state, { payload }) => {
-            state.loading = false
-            state.success = true // registration successful
-        },
-        [registerUser.rejected]: (state, { payload }) => {
-            state.loading = false
-            state.error = payload
-        },
-        //login user
-        [loginUser.pending]: (state) => {
-            state.loading = true
-            state.error = null
-        },
-        [loginUser.fulfilled]: (state, { payload }) => {
-            state.loading = false
-            state.userInfo = payload
-            state.userToken = payload.userToken
-        },
-        [loginUser.rejected]: (state, { payload }) => {
-            state.loading = false
-            state.error = payload
-        },
-        //logout user
-        [logoutUser.pending]: (state) => {
-            state.loading = true
-            state.error = null
-        },
-        [logoutUser.fulfilled]: (state) => {
+    reducers: {
+        logoutUser: (state) => {
             state.loading = false
             state.userInfo = null
             state.userToken = null
-        },
-        [logoutUser.rejected]: (state, { payload }) => {
+            state.error = null
+            state.success = false
+            state.following = []
+            state.followers = []
+        }
+    },
+    extraReducers: (builder) => {
+        //register user pending , fulfilled, rejected
+        builder.addCase(registerUser.pending, (state, action) => {
+            state.loading = true
+            state.error = false
+        })
+        builder.addCase(registerUser.fulfilled, (state, { payload }) => {
+            state.loading = false
+            state.success = true // registration successful
+        })
+        builder.addCase(registerUser.rejected, (state, { payload }) => {
             state.loading = false
             state.error = payload
-        },
-        //update user
-        [updateUser.pending]: (state) => {
+        })
+        // login user pending , fulfilled, rejected
+        builder.addCase(loginUser.pending, (state, action) => {
             state.loading = true
             state.error = null
-        },
-        [updateUser.fulfilled]: (state, { payload }) => {
+        })
+        builder.addCase(loginUser.fulfilled, (state, { payload }) => {
+            state.loading = false
+            state.userInfo = payload
+            state.userToken = payload.userToken
+        })
+        builder.addCase(loginUser.rejected, (state, { payload }) => {
+            state.loading = false
+            state.error = payload
+        })
+        // update user pending , fulfilled, rejected
+        builder.addCase(updateUser.pending, (state, action) => {
+            state.loading = true
+            state.error = null
+        })
+        builder.addCase(updateUser.fulfilled, (state, { payload }) => {
             state.loading = false
             state.userInfo = payload
             state.userToken = payload.token
-        },
-        [updateUser.rejected]: (state, { payload }) => {
+        })
+        builder.addCase(updateUser.rejected, (state, { payload }) => {
             state.loading = false
             state.error = payload
-        },
-        //follow / unfollow user
-        [followUser.pending]: (state) => {
+        })
+        //followUser pending , fulfilled, rejected
+        builder.addCase(followUser.pending, (state, action) => {
             state.loading = true
             state.error = null
-        },
-        [followUser.fulfilled]: (state, { payload }) => {
-            console.log("amshbd", payload, state)
+        })
+        builder.addCase(followUser.fulfilled, (state, { payload }) => {
+            // console.log("amshbd", payload, state)
             state.loading = false
             if (payload.following) {
                 state.userInfo.user.following = [payload.id, ...state.userInfo.user.following]
@@ -89,12 +85,13 @@ export const userSlice = createSlice({
                     return userId !== payload.id
                 })
             }
-        },
-        [followUser.rejected]: (state, { payload }) => {
+        })
+        builder.addCase(followUser.rejected, (state, { payload }) => {
             state.loading = false
             state.error = payload
-        },
+        })
     },
 })
 
 export default userSlice.reducer
+export const { logoutUser } = userSlice.actions
