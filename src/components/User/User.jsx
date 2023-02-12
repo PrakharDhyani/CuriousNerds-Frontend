@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { followUser } from '../../features/user/userActions';
 import { useState } from 'react';
+import defaultprofile from '../../img/defaultprofile.jpg'
 
 export default function User({ person }) {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ export default function User({ person }) {
   return (
     <div className='followers'  >
         <div>
-        <img src={person.profilePicture ? serverPublic + person.profilePicture : serverPublic + "defaultprofile.jpg"} alt="follower" className='followerImg' />
+        <img src={person.profilePicture ? serverPublic + person.profilePicture :defaultprofile} alt="follower" className='followerImg' />
             <div className="name">
                 <span style={{fontWeight:"bold"}} >{ person.firstname}</span>
                 <span>{ person.username}</span>

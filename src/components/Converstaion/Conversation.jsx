@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import defaultprofile from "../../img/defaultprofile.jpg"
 import api from '../../common/api/Api';
 
 export default function Conversation({ data, currentUser, online }) {
@@ -32,7 +33,7 @@ export default function Conversation({ data, currentUser, online }) {
         <div>
           {online && <div className="online-dot"></div>}
           <img
-            src={userData?.profilePicture? process.env.REACT_APP_PUBLIC_FOLDER + userData.profilePicture : process.env.REACT_APP_PUBLIC_FOLDER + "defaultprofile.jpg"}
+            src={userData?.profilePicture? process.env.REACT_APP_PUBLIC_FOLDER + userData.profilePicture : defaultprofile}
             alt="Profile"
             className="followerImg"
             style={{ width: "50px", height: "50px" }}

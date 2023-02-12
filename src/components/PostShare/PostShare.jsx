@@ -1,7 +1,8 @@
 import React, {useState,useRef} from 'react'
 import {UilScenery ,UilPlayCircle ,UilLocationPoint,UilSchedule,UilTimes} from "@iconscout/react-unicons"
 import { useDispatch, useSelector } from 'react-redux'
-import { uploadPost,uploadImg } from '../../features/post/postAction'
+import { uploadPost, uploadImg } from '../../features/post/postAction'
+import defaultprofile from "../../img/defaultprofile.jpg"
 import "./PostShare.css"
 
 
@@ -35,7 +36,7 @@ export default function PostShare() {
       const fileName =  image.name
       console.log(fileName)
       data.append("name", fileName);
-      console.log(data.name)
+      // console.log(data.name)
       data.append("file", image); // this "file" will be the name of the -> upload.single("file")
       newPost.image = fileName;
       newPost.user = user.username;
@@ -54,7 +55,7 @@ export default function PostShare() {
   }
   return (
       <div className='PostShare' >
-           <img src={user.profilePicture ?serverPublic + user.profilePicture : serverPublic + "defaultprofile.jpg"} alt="profile" />
+           <img src={user.profilePicture ?serverPublic + user.profilePicture :defaultprofile } alt="profile" />
           <div>
               <input type="text" required ref={desc} placeholder='Whats happening'  />
           <div className="PostOptions">

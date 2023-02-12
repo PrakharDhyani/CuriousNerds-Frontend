@@ -4,7 +4,7 @@ import "./Chatbox.css";
 import api from "../../common/api/Api";
 import { format } from "timeago.js";
 import InputEmoji from 'react-input-emoji'
-
+import defaultprofile from "../../img/defaultprofile.jpg"
 const Chatbox = ({ chat, currentUser, setSendMessage,  receivedMessage }) => {
   const [userData, setUserData] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -92,7 +92,7 @@ useEffect(()=> {
             <div className="chat-header">
               <div className="followers">
                 <div>
-                  <img src = {  userData?.profilePicture ? process.env.REACT_APP_PUBLIC_FOLDER +   userData.profilePicture: process.env.REACT_APP_PUBLIC_FOLDER +"defaultprofile.jpg" }
+                  <img src = {  userData?.profilePicture ? process.env.REACT_APP_PUBLIC_FOLDER +   userData.profilePicture: defaultprofile }
                     alt = "Profile"
                     className = "followerImg"
                     style = {{ width: "50px", height: "50px" }}

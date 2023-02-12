@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const api = axios.create({
-    baseURL: "https://curiousnerd-backend.onrender.com/",
+    baseURL: "https://curiousnerd-backend-gfyo.onrender.com/",
     // baseURL: "http://localhost:5000//",
 })
 
