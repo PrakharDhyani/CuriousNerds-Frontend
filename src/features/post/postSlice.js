@@ -16,76 +16,50 @@ export const postSlice = createSlice({
     name: "post",
     initialState,
     reducers: {},
-    extraReducers: {
-        [uploadPost.pending]: (state) => {
+    extraReducers: (builder) => {
+        // upload post reducer
+        builder.addCase(uploadPost.pending, (state, action) => {
             state.loading = true
             state.error = false
-        },
-        [uploadPost.fulfilled]: (state, action) => {
+        })
+        builder.addCase(uploadPost.fulfilled, (state, { payload }) => {
             state.loading = false
             state.success = true
-            state.posts = [action.payload, ...state.posts]
-        },
-        [uploadPost.rejected]: (state, action) => {
+            state.posts = [payload, ...state.posts]
+        })
+        builder.addCase(uploadPost.rejected, (state, { payload }) => {
             state.loading = false
-            state.error = action.payload
-        },
-        [uploadImg.pending]: (state) => {
+            state.error = payload
+        })
+        // upload image reducer
+        builder.addCase(uploadImg.pending, (state) => {
             state.loading = true
             state.error = false
-        },
-        [uploadImg.fulfilled]: (state, action) => {
+        })
+        builder.addCase(uploadImg.fulfilled, (state, action) => {
             state.loading = false
             state.success = true
-        },
-        [uploadImg.rejected]: (state, action) => {
+        })
+        builder.addCase(uploadImg.rejected, (state, { payload }) => {
             state.loading = false
-            state.error = action.payload
-        },
-        [getTimeLinePosts.pending]: (state) => {
+            state.error = payload
+        })
+        // get timeline posts reducer
+        builder.addCase(getTimeLinePosts.pending, (state) => {
             state.loading = true
             state.error = false
-        },
-        [getTimeLinePosts.fulfilled]: (state, action) => {
+        })
+        builder.addCase(getTimeLinePosts.fulfilled, (state, { payload }) => {
             state.loading = false
             state.success = true
-            console.log("actio n payload", action.payload)
-            state.posts = action.payload
-        },
-        [getTimeLinePosts.rejected]: (state, action) => {
+            console.log("actio n payload", payload)
+            state.posts = payload
+        })
+        builder.addCase(getTimeLinePosts.rejected, (state, { payload }) => {
             state.loading = false
-            state.error = action.payload
-        },
-        //     [likePost.pending]: (state) => {
-        //         state.loading = true
-        //         state.error = false
-        //     },
-        //     [likePost.fulfilled]: (state, { payload }) => {
-        //         state.loading = false
-        //         state.success = true
-        //         console.log("jahsgda", payload.like)
-        //         if (payload.like) {
-        //             state.posts.map((post) => {
-        //                 if (post._id === payload.id) {
-        //                     post.likes = [payload.userId, ...post.likes];
-        //                 }
-        //             })
-        //         } else {
-        //             state.posts.map((post) => {
-        //                 if (post._id === payload.id) {
-        //                     post.likes.filter((userid) => {
-        //                         return userid !== payload.userId;
-        //                     })
-        //                 }
-        //             })
-        //         }
-        //     },
-        //     [likePost.rejected]: (state, action) => {
-        //         state.loading = false
-        //         state.error = action.payload
-        //     },
-    }
-
+            state.error = payload
+        })
+    },
 })
 
 export default postSlice.reducer
